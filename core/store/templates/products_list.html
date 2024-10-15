@@ -1,0 +1,50 @@
+{% extends "master.html" %}
+
+{% block title %}
+  Store App - List of all products
+{% endblock %}
+
+{% block content %}
+  <div class="mycard">
+    <h1>Products</h1>
+    <ul>
+      {% for product in products %}
+        <li><a href="{{ product.id }}"> 
+          {{ product.name }}, ჯამური ღირებულება - {{ product.total_cost_per_product }} ₾
+        </a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  
+  <div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; პირველი</a>
+            <a href="?page={{ page_obj.previous_page_number }}">წინა</a>
+        {% endif %}
+
+        <span class="current">
+            გვერდი {{ page_obj.number }} დან {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">შემდეგი</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">ბოლო &raquo;</a>
+        {% endif %}
+    </span>
+  </div>
+
+  <div class="product-info">
+    <p>ყველაზე ძვირიანი პროდუქტი - {{ most_expensive_product_price}}, {{ most_expensive_product_price }}₾</p>
+    <p>ყველაზე იაფიანი პროდუქტი - {{ cheapest_product.name }}, {{ cheapest_product_price }}₾</p>
+    <p>პროდუქტის საშუალო ფასი - {{ average_price }}₾</p>
+    <p>კატეგორიაში არსებული ყველა პროდუქტის ჯამური ღირებულება - {{ total_cost }}₾</p>
+    <p>Back to - <a href="/categories">Categories</a></p>
+  </div>
+
+  
+{% endblock %}
+
+
+ 
+

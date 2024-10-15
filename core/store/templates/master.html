@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'css/store/styles.css' %}">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <div class="topnav">
+        <a href="/">HOME</a> 
+        {% for key, value in addresses.items %}
+            | <a href="/{{ value }}"> {{ key }} </a>
+        {% endfor %}
+    </div>
+
+{% block content %}
+{% endblock %}
+
+</body>
+</html>

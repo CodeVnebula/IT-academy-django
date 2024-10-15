@@ -1,14 +1,10 @@
 from django.urls import path
-from django.conf.urls.static import static
-from django.conf import settings
-from .views import categories_list, products_list, index
+from . import views
 
 urlpatterns = [
-    path('', index),
-    path('categories/', categories_list),
-    path('products/', products_list),
-]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    
+    path('', views.index, name='index'),
+    path('categories/', views.top_level_categories, name='top_level_categories'),
+    path('categories/<int:category_id>/products/', views.category_product_list, name='category_product_list'),
+    path('categories/<int:category_id>/products/<int:product_id>/', views.product_details, name='product_details'),
+] 
+   

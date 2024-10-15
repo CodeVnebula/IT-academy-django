@@ -1,8 +1,10 @@
 from django.db import models
+import os
 
 class Category(models.Model):
     name = models.CharField(max_length=255)
-    parent = models.ForeignKey('Category', on_delete=models.CASCADE, null=True, blank=True)
+    parent = models.ForeignKey('Category', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
+    slug = models.SlugField(default='', null=False)
     
     def __str__(self):
         return f'{self.parent}/{self.name}' if self.parent else self.name
@@ -16,9 +18,16 @@ class Product(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
-    image = models.ImageField(upload_to='media/products/', null=True, blank=True)
+    image = models.ImageField(upload_to='products/', null=True, blank=True)
     stock = models.PositiveIntegerField()
     available = models.BooleanField(default=True)
-
+    slug = models.SlugField(default='', null=False)
+        
+    def delete(self, *args, **kwargs):
+        if self.image and os.path.exists(self.image.path):
+            os.remove(self.image.path)
+        
+        super().delete(*args, **kwargs)
+        
     def __str__(self):
         return self.name

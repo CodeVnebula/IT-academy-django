@@ -1,0 +1,43 @@
+{% extends "master.html" %}
+
+{% block title %}
+  Product Details - {{ product.name }}
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <div class="product-image">
+    <img src="{{ product.image }}" alt="{{ product.name }}" class="img-fluid">
+  </div>
+
+  <div class="product-details">
+    <h1>{{ product.name }}</h1>
+    <p class="price">{{ product.price }}₾</p>
+    <p class="description">{{ product.description }}</p>
+
+    <div class="additional-info">
+      <h2>Product Information</h2>
+      <ul>
+        <li><strong>პროდუქტის ID:</strong> {{ product.id }}</li>
+        <li><strong>კატეგორია (ძირითადი):</strong> {{ product.category }}</li>
+        <li><strong>რაოდენობა:</strong> {{ product.stock }}</li>
+        {% if product.available %}
+          <li><strong>ხელმისაწვდომი:</strong> კი</li>
+        {% else %}
+          <li><strong>ხელმისაწვდომი:</strong> არა</li>
+        {% endif %}
+        <li><strong>შექმნის დრო:</strong> {{ product.created_at }}</li>
+        <li><strong>ბოლოს განახლდა:</strong> {{ product.updated_at }}</li>
+        {% if product.is_active %}
+            <li><strong>აქტიური:</strong> კი</li>
+        {% else %}
+            <li><strong>აქტიური:</strong> არა</li>
+        {% endif %}
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}
