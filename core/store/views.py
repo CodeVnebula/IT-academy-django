@@ -29,9 +29,9 @@ def top_level_categories(request):
         'categories': categories_list,
     }
 
-    template = loader.get_template('top_level_categories.html')
-    return HttpResponse(template.render(context, request))
-   
+    # template = loader.get_template('top_level_categories.html')
+    # return HttpResponse(template.render(context, request))
+    return render(request, 'top_level_categories.html', context)
 
 def category_product_list(request, category_id):
     category = Category.objects.get(id=category_id)
@@ -76,15 +76,13 @@ def category_product_list(request, category_id):
         'total_cost': product_aggregates['total_cost'],
     }
 
-    template = loader.get_template('products_list.html')
-    return HttpResponse(template.render(context, request))
-
-
-
+    # template = loader.get_template('products_list.html')
+    # return HttpResponse(template.render(context, request))
+    return render(request, 'products_list.html', context)
 
 def product_details(request, category_id, product_id):
     product = Product.objects.get(id=product_id)
-    pro = {
+    product_details = {
         'id': product.id,
         'name': product.name,
         'description': product.description,
@@ -100,11 +98,11 @@ def product_details(request, category_id, product_id):
     }
     
     context = {
-        'product': pro,
+        'product': product_details,
         'addresses' : {
             'CATEGORIES' : 'categories',
             'PRODUCTS' : f'categories/{category_id}/products',
-            'PRODUCT_DETAILS' : f'categories/{category_id}/products/{product_id}',
+            'PRODUCT DETAILS' : f'categories/{category_id}/products/{product_id}',
         },
     }
     
