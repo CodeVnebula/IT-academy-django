@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     
     # Local apps
     'order.apps.OrderConfig',
-    'store.apps.StoreConfig',   
+    'store.apps.StoreConfig',  
+    'user.apps.UserConfig', 
 ]
 
 MIDDLEWARE = [
@@ -145,3 +146,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
+
+AUTH_USER_MODEL = 'user.User'
